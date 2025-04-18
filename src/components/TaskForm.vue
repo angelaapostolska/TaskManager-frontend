@@ -1,3 +1,4 @@
+<!-- formata za dodavanje novi tasks na FRONTEND -->
 <!-- form for adding a new task -->
 <script setup>
 import { computed, ref } from "vue";

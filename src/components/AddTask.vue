@@ -1,3 +1,4 @@
+<!-- tuka addTask treba da prati api call do BACKEND -->
 <script>
 import axios from "axios";
 
@@ -17,9 +18,9 @@ export default {
       this.title = "";
       this.category = "mid";
       this.$emit("taskAdded");
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <template>
