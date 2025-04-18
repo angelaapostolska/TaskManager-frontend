@@ -9,13 +9,14 @@
             <!-- text input -->
             <input
               type="text"
+              v-model="searchQuery"
               placeholder="Search..."
               class="search-2"
               @input="onSearch"
             />
-            <!-- Heroicon goes next to it -->
             <SearchIcon class="search-icon" />
           </div>
+
           <div class="text-wrapper">Hello, user</div>
 
           <div class="group">
@@ -41,7 +42,8 @@
   </div>
 </template>
 
-<script>
+<script setup>
+import { ref } from "vue";
 import {
   SearchIcon,
   PlusIcon,
@@ -50,16 +52,11 @@ import {
   QuestionMarkCircleIcon,
 } from "@heroicons/vue/24/outline";
 
-export default {
-  name: "HomeScreen",
-  components: {
-    SearchIcon,
-    PlusIcon,
-    UserIcon,
-    CogIcon,
-    QuestionMarkCircleIcon,
-    CogIcon,
-  },
+const searchQuery = ref("");
+
+const onSearch = () => {
+  console.log("Search term:", searchQuery.value);
+  // Add your search/filter logic here 🧠✨
 };
 </script>
 

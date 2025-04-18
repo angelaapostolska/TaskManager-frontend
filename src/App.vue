@@ -1,7 +1,6 @@
 <script setup>
-import TaskForm from "./components/TaskForm.vue";
-import TaskList from "./components/TaskList.vue";
 import { useTasks } from "./composables/useTasks";
+import HomeScreen from "./components/HomeScreen.vue";
 
 const { tasks, addTask, updateTask } = useTasks();
 </script>
@@ -10,6 +9,6 @@ const { tasks, addTask, updateTask } = useTasks();
   <div>
     <h1>Your Personal Task Manager</h1>
     <!-- <TaskForm @add-task="addTask"></TaskForm> -->
-    <TaskList :tasks="tasks" :update-task="updateTask"></TaskList>
+    <HomeScreen :tasks="tasks" :update-task="updateTask"></HomeScreen>
   </div>
 </template>
