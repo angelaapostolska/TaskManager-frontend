@@ -7,7 +7,6 @@ const { tasks, addTask, updateTask } = useTasks();
 
 <template>
   <div>
-    <h1>Your Personal Task Manager</h1>
     <!-- <TaskForm @add-task="addTask"></TaskForm> -->
     <HomeScreen :tasks="tasks" :update-task="updateTask"></HomeScreen>
   </div>
