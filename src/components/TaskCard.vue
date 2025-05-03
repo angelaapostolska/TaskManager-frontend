@@ -1,3 +1,4 @@
+<!-- treba da se smeni  -->
 <template>
   <div :class="['task-card', length, className]">
     <div v-if="length === 'default'">

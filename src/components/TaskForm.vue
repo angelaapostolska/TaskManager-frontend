@@ -7,6 +7,7 @@ import { computed, ref } from "vue";
 const emit = defineEmits(["add-task"]);
 
 const taskName = ref("");
+const taskDescription = ref("");
 const urgencies = ["Urgent", "Mid", "Least Urgent"];
 const selectedUrgency = ref(null);
 
@@ -35,83 +36,142 @@ const addTask = () => {
   emit("add-task", {
     name: taskName.value,
     urgency: selectedUrgency.value,
+    description: taskDescription.value,
     completed: false,
   });
 
   //clearing inputs after emiting the event
   taskName.value = "";
   selectedUrgency.value = null;
+  taskDescription.value = "";
 };
 </script>
 <template>
-  <div class="task-container">
-    <label for="taskName">Task Name: </label>
-    <input
-      id="taskName"
-      v-model="taskName"
-      type="text"
-      placeholder="Enter task name"
-    />
+  <div class="form-wrapper">
+    <div class="image-container">
+      <div class="illustration-container"></div>
+    </div>
 
-    <label for="urgency">Select Urgency: </label>
-    <select v-model="selectedUrgency" class="dropdown">
-      <option value="" disabled>Select urgency</option>
-      <option
-        v-for="(urgency, index) in urgencies"
-        :key="index"
-        :value="urgency"
-      >
-        {{ urgency }}
-      </option>
-    </select>
+    <div class="task-form">
+      <label for="taskName">Task Name:</label>
+      <input
+        id="taskName"
+        v-model="taskName"
+        type="text"
+        placeholder="Enter task name"
+      />
 
-    <button @click="addTask" class="submit-button">Add Task</button>
+      <label for="urgency">Category:</label>
+      <select v-model="selectedUrgency">
+        <option disabled value="">Select urgency</option>
+        <option
+          v-for="(urgency, index) in urgencies"
+          :key="index"
+          :value="urgency"
+        >
+          {{ urgency }}
+        </option>
+      </select>
+
+      <label for="description">Description:</label>
+      <textarea
+        id="description"
+        v-model="taskDescription"
+        placeholder="Enter task description"
+      ></textarea>
+
+      <button class="custom-btn" @click="addTask">Submit</button>
+    </div>
   </div>
 </template>
 
 <style scoped>
-.task-container {
-  width: 80%; /* Increased form width */
-  max-width: 900px; /* Maximum width for form */
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  padding: 20px;
+.form-wrapper {
+  width: 682px;
+  height: 441px;
+  display: flex; /* side-by-side layout */
+  flex-direction: row;
   background: #f9f9f9;
   border-radius: 10px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* left side */
+.image-container {
+  width: 50%;
+  height: 100%;
+  background-image: url("/taskFormBg.png"); /* This is correct if it's in public/ */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.illustration-container {
+  background-image: url("/graphic.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+  height: 200px;
+}
+
+/* right side - the form */
+.task-form {
+  width: 50%;
+  height: 100%;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-sizing: border-box;
+  justify-content: center;
+}
+
+/* Button styling */
+.custom-btn {
+  display: flex;
+  width: 300px;
+  height: 45px;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  border-radius: 15px;
+  background: var(--Disabled, rgba(177, 148, 255, 0.15));
+  color: white;
+  font-family: "Lato", sans-serif;
+  font-weight: 600;
+  font-size: 18px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  margin-top: 80px;
+}
+
+.custom-btn:hover {
+  background: rgba(177, 148, 255, 0.25);
 }
 
 input,
-select {
+select,
+textarea {
+  width: 100%; /* Make them take up all available width */
+  max-width: 300px; /* Prevent them from stretching too wide */
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 16px;
-  width: 100%; /* Make sure inputs take full width */
-}
-
-.submit-button {
-  padding: 10px 20px;
-  background-color: #6d8aa8;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.submit-button:hover {
-  background-color: #47668b;
+  box-sizing: border-box; /* Include padding in the width calculation */
 }
 
 label {
-  font-size: 16px;
   font-weight: bold;
-  margin-bottom: 5px;
-}
-
-.dropdown {
-  cursor: pointer;
+  font-size: 14px;
+  margin-bottom: 4px;
 }
 </style>

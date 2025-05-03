@@ -1,18 +1,33 @@
 <!-- home page, prikazhuenje na tasks -->
 <template>
   <!-- header-->
-  <Header></Header>
+  <Header @show-form="handleShowForm"></Header>
+  <!-- task form modal panel -->
+  <TaskForm v-if="showForm" @add-task="handleTaskAdded"></TaskForm>
   <!-- main content -->
   <div class="main-content-container">
-    <p>our tasks will come here</p>
+    <TaskContainer></TaskContainer>
   </div>
   <!-- sidebar -->
   <Sidebar></Sidebar>
 </template>
 <script setup>
-import SearchBar from "./SearchBar.vue";
 import Sidebar from "./Sidebar.vue";
 import Header from "./Header.vue";
+import TaskContainer from "./TaskContainer.vue";
+import TaskForm from "./TaskForm.vue";
+import { ref } from "vue";
+
+const showForm = ref(false);
+
+const handleShowForm = () => {
+  showForm.value = true; //makes our form visible
+};
+
+const handleTaskAdded = (task) => {
+  console.log("Task received: ", task);
+  showForm.value = false; //closing the form after adding
+};
 </script>
 <style>
 body {

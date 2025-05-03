@@ -2,7 +2,7 @@
   <div class="header-row">
     <div class="hello-user">Hello {{ userName }}!</div>
     <div class="right">
-      <div class="plus-icon-wrapper">
+      <div class="plus-icon-wrapper" @click="handleClick">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -27,7 +27,12 @@
 import SearchBar from "./SearchBar.vue";
 import { ref } from "vue";
 
+const emit = defineEmits(["show-form"]);
 const userName = ref("Jane Doe");
+
+const handleClick = () => {
+  emit("show-form");
+};
 </script>
 
 <style scoped>
